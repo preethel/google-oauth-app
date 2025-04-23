@@ -1,0 +1,5 @@
+<div>
+  <div id="card-element" style="margin-bottom: 1rem;"></div>
+  <button (click)="pay()" [disabled]="processing">Pay</button>
+  <p style="color: red;" *ngIf="cardErrors">{{ cardErrors }}</p>
+</div>
