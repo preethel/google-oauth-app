@@ -12,13 +12,14 @@ export class GoogleCallbackComponent {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
   ngOnInit(): void {
     const AuthorizationCode = this.route.snapshot.queryParamMap.get('code');
+    const RedirectUri = "http://localhost:4200/google-callback";
     if (AuthorizationCode) {
       console.log('Google OAuth code:', AuthorizationCode);
 
       const headers = new HttpHeaders()
-        .set('Authorization', 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsibWVtYmVyIiwibWFuYWdlciIsImNvbGxhYm9yYXRvciIsImFkbWluIl0sImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJzdHJpbmcgc3RyaW5nIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmYzQ1ZmJmYy0zZTFiLTRiOWItYjMxMy04MDE0MDcyZWI1ZGYiLCJPblBvaW50U2lnbldvcmtzcGFjZUlkIjoiMzZmY2ZhYjQtOGM1MS00YjMyLTk5ZDktNDE1ZjhmNWYwNmYxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiYXphbTEzYmhAZ21haWwuY29tIiwiZXhwIjoxNzQ3MTM1MjQwfQ.nz_9jmbYH_qV31CtdvIdzFXb1BMqAEJw7ldnvgCEV6ivKrn7p_nz2hoUd7zlCzPK9w1wdf9E_5UYJ80GV4ia_nifuhqDMsMKdPRWv6-rtxnd3hIOkKWC3HCu8lxlyknEFbDJ6laOjJCENv1qoCtjtu4wT7Wi2sdVPgIDxUa4bp882x8HwXVmYzGAz7nTiUQp2UpsOd5zOHXNR1dnbuyc_2nYjbkknTLCL7-NJVlJmyBeD9M_nw9hRHFvVB9MtUB14uLA-nnfUuqjxdJt2ylKx8X1-wWmYCtcfT0PpdiFoD0tLWeM-eYFkwXTB-b2jW8r5JsshnjZmUufOK_s4hICaw');
+        .set('Authorization', 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsibWVtYmVyIiwiY29sbGFib3JhdG9yIiwiYWRtaW4iLCJtYW5hZ2VyIl0sImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJSZWR3YW4gQXphbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMDBhOTJmOWMtODg4Ni00NzY1LWJlNGItZjgyZjk2NDY2MjI5IiwiT25Qb2ludFNpZ25Xb3Jrc3BhY2VJZCI6IjI1ODQ5ODFjLTU5YjItNGRlYy1hYmZiLWYxYTJlNjYxMTBkMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImF6YW0xM2JoQGdtYWlsLmNvbSIsImV4cCI6MTc0NzUwNTE3OX0.AhW3p7Jc-aAwrGcp7P3x_Imn3i5TaqWg1pdrAiJQYUGl_BnOcDfOxxr93GXdh_MbnV_30h0COvIOwVEsyfBuBnWDfWkgecWJoOVD4Urvh8f6rnZNoY886B2Pbxw7TWiyVfXAaDeVbhDuKiOIBluyAKWkPakgfHRCES5_9Mx0WmhYOyiBDgMUpWVuHsWznUSR_xipimz6-Lb-okfHnBnd3rP6ddBFwFkRcFNQO8lqp4o3d9V6ceS5BJiqpqAWfzVtcHJFr0qsS6Xrx563gIodpafCWnKygTYk_foZGxxn84yFcDGalemfBV84PIjfZOnXhV7oQ1ZvN2B_jW8WmC-SQA');
 
-      this.http.post('http://localhost:13000/google-meet/exchange-code', { AuthorizationCode }, { headers }).subscribe(() => {
+      this.http.post('http://54.253.226.214:13000/google-meet/exchange-code', { AuthorizationCode, RedirectUri }, { headers }).subscribe(() => {
         alert('Google login successful');
         this.router.navigate(['/']);
       });
